@@ -2,6 +2,10 @@
 
 Consent-first Telegram memory companion hackathon prototype.
 
+## Credits
+
+Created and maintained by **Muhammad Murtuza Hussain**.
+
 ## Run locally
 
 Open three terminals in this directory:
