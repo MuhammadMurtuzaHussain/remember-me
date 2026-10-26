@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remember Me</title>
+<meta name="description" content="A consent-first memory companion for Telegram. Open source, and the language model runs on your own machine.">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#top"><span class="dot"></span>Remember Me</a>
+    <nav><a href="#how">How it works</a><a href="#demo">Try it</a><a href="#privacy">Privacy</a><a href="#run">Run it</a></nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero wrap">
+  <p class="eyebrow">Open source &middot; Telegram &middot; Gemma on your machine</p>
+  <h1>Plans get buried in family chats. Remember Me finds them again.</h1>
+  <p class="lede">Someone you care for opts in once. Remember Me turns the plans in their chosen chats into short, source-backed memories, answers questions like <em>&ldquo;What am I doing tomorrow?&rdquo;</em> with the original message attached, and sends a calm morning briefing. A language model on the machine running the bot does the reading. No cloud AI service sees a word.</p>
+  <p class="cta"><a class="btn primary" href="#demo">Try the sandbox</a><a class="btn" href="#run">Run it yourself</a></p>
+</section>
+
+<section id="how" class="wrap">
+  <h2>How it works</h2>
+  <ol class="steps">
+    <li><b>Opt in.</b><span>The person messages the bot and sends <code>/optin</code>. Until then, nothing is stored.</span></li>
+    <li><b>Choose chats.</b><span>They add the bot to a family group and send <code>/watch</code>. The bot tells the group, and anyone can send <code>/notme</code> to be left out and erased.</span></li>
+    <li><b>Remember.</b><span>Each text message becomes a short memory by a Gemma model run through Ollama. Answers always cite the original message.</span></li>
+    <li><b>Stay in control.</b><span><code>/pause</code>, <code>/optout</code> and <code>/deletemydata</code> work any time. A caregiver can pause and resume, never switch capture on.</span></li>
+  </ol>
+</section>
+
+<section id="demo" class="wrap">
+  <h2>Try it in a sandbox</h2>
+  <p class="muted">Everything below is synthetic: invented people and invented messages. Nothing connects to Telegram, nothing is written to disk, and your session is deleted after 20 minutes idle. <span id="mode-note"></span></p>
+
+  <div id="demo-app" class="demo" hidden>
+    <div class="panel" aria-labelledby="p1">
+      <h3 id="p1">1 &middot; Consent &amp; controls</h3>
+      <div class="state" id="consent-state"></div>
+      <div class="row">
+        <button id="b-optin" class="btn primary">/optin</button>
+        <button id="b-optout" class="btn">/optout</button>
+      </div>
+      <div class="row">
+        <button id="b-pause" class="btn">Caregiver: /pause</button>
+        <button id="b-resume" class="btn">Caregiver: /resume</button>
+      </div>
+      <h4>Chats</h4>
+      <div id="chats"></div>
+      <h4>Group members</h4>
+      <div id="members"></div>
+      <div class="row"><button id="b-delete" class="btn danger">/deletemydata</button></div>
+      <h4>Consent log</h4>
+      <ul id="audit" class="mini"></ul>
+    </div>
+
+    <div class="panel" aria-labelledby="p2">
+      <h3 id="p2">2 &middot; Messages arrive</h3>
+      <p class="hint">Press a message to deliver it. The result shows what Remember Me did with it.</p>
+      <div id="msgs" class="msgs"></div>
+      <form id="custom" class="custom" hidden>
+        <label for="custom-text">Write your own message (live model only)</label>
+        <div class="row"><input id="custom-text" maxlength="280" autocomplete="off" placeholder="Pick me up at 5 on Friday"><button class="btn">Send</button></div>
+      </form>
+      <h4>What happened</h4>
+      <ul id="log" class="log"></ul>
+    </div>
+
+    <div class="panel" aria-labelledby="p3">
+      <h3 id="p3">3 &middot; What it remembers</h3>
+      <div id="memories" class="mems"></div>
+      <h4>Ask</h4>
+      <div id="questions" class="chips"></div>
+      <form id="ask" class="custom" hidden><div class="row"><input id="ask-text" maxlength="200" autocomplete="off" placeholder="Ask your own question"><button class="btn">Ask</button></div></form>
+      <div id="answer" class="answer" aria-live="polite"></div>
+      <h4>Morning briefing</h4>
+      <button id="b-brief" class="btn">Preview briefing</button>
+      <pre id="brief" class="brief" aria-live="polite"></pre>
+    </div>
+  </div>
+  <p id="demo-error" class="err" role="alert" hidden></p>
+</section>
+
+<section id="privacy" class="wrap">
+  <h2>Privacy by construction</h2>
+  <div class="grid">
+    <article><h3>Local model</h3><p>Memory extraction and answers use open-weight Gemma 4 through Ollama on the machine running the bot. There is no cloud AI key to leak and no third party in the loop.</p></article>
+    <article><h3>Real opt-in</h3><p>Capture is off for everyone until that person sends <code>/optin</code>. Group watching needs their consent too. There is no default recipient and no shared account.</p></article>
+    <article><h3>Bot, not a spy</h3><p>It runs as a normal Telegram bot, so it only sees groups it was added to, and every member can see it there. It never logs in as a person.</p></article>
+    <article><h3>Others in the chat</h3><p>The group is told when watching starts. <code>/notme</code> excludes a member and erases what was saved from them.</p></article>
+    <article><h3>Delete means delete</h3><p><code>/deletemydata confirm</code> removes every row for that person and overwrites the freed pages. Data also expires after 90 days by default.</p></article>
+    <article><h3>Honest limits</h3><p>Telegram itself still sees group traffic, and a small local model can misread a message. So every answer cites its source, and briefings never pass through the model. The <a href="https://github.com/MuhammadMurtuzaHussain/remember-me/blob/main/docs/THREAT_MODEL.md">threat model</a> lists what this does not protect against.</p></article>
+  </div>
+</section>
+
+<section id="run" class="wrap">
+  <h2>Run it yourself</h2>
+  <pre class="code"><code>ollama pull gemma4:e4b
+git clone https://github.com/MuhammadMurtuzaHussain/remember-me
+cd remember-me &amp;&amp; npm install &amp;&amp; npm start</code></pre>
+  <p class="muted">That serves this page and sandbox at <code>localhost:8787</code>. To run the Telegram bot, create one with @BotFather and set <code>TELEGRAM_BOT_TOKEN</code>; the README has the details. MIT licensed.</p>
+</section>
+</main>
+
+<footer class="wrap foot">
+  <p>Created and maintained by <b>Muhammad Murtuza Hussain</b>. A hackathon prototype rebuilt as a complete open-source project for Hacktoberfest 2026.</p>
+  <p class="muted">Remember Me is a memory aid, not a medical device. It does not diagnose, and it should not be the only way anyone keeps track of an important appointment.</p>
+</footer>
+<script src="/app.js" type="module"></script>
+</body>
+</html>

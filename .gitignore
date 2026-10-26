@@ -1,6 +1,6 @@
 node_modules
 .env
 data
-.trigger
 .DS_Store
-Users/
+*.db
+*.db-*
