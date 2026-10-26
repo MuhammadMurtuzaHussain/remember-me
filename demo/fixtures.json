@@ -1,0 +1,122 @@
+{
+  "model": "gemma4:e4b",
+  "recordedAt": "2026-10-26T15:33:09.483Z",
+  "extractions": {
+    "lunch": {
+      "summary": "Sarah will collect Mum for lunch tomorrow at 1pm.",
+      "people": [
+        "Sarah",
+        "Mum"
+      ],
+      "importance": "high",
+      "eventTitle": "Lunch Collection",
+      "eventTimeText": "tomorrow at 1pm",
+      "memoryCue": "Sarah collecting Mum for lunch.",
+      "confidence": 1,
+      "needsConfirmation": false
+    },
+    "dentist": {
+      "summary": "Dentist appointment is scheduled for Thursday at 10am at Dr Okafor's clinic.",
+      "people": [
+        "Dan"
+      ],
+      "importance": "high",
+      "eventTitle": "Dentist Appointment",
+      "eventTimeText": "Thursday at 10am",
+      "memoryCue": "Dr Okafor's clinic",
+      "confidence": 1,
+      "needsConfirmation": false
+    },
+    "play": {
+      "summary": "Lena's school play is on Friday at 6pm, and the sender will attend with others.",
+      "people": [
+        "Lena"
+      ],
+      "importance": "high",
+      "eventTitle": "Lena's school play",
+      "eventTimeText": "Friday at 6pm",
+      "memoryCue": "Lena's school play on Friday at 6pm.",
+      "confidence": 1,
+      "needsConfirmation": false
+    },
+    "cake": {
+      "summary": "Alex is bringing the cake on Saturday.",
+      "people": [
+        "Alex"
+      ],
+      "importance": "medium",
+      "eventTitle": null,
+      "eventTimeText": "Saturday",
+      "memoryCue": "cake",
+      "confidence": 1,
+      "needsConfirmation": false
+    },
+    "meme": {
+      "summary": "Dan mentioned seeing a video of a dog on a skateboard.",
+      "people": [
+        "Dan"
+      ],
+      "importance": "low",
+      "eventTitle": null,
+      "eventTimeText": null,
+      "memoryCue": "dog on skateboard video",
+      "confidence": 1,
+      "needsConfirmation": false
+    },
+    "inject": {
+      "summary": "Dan told the recipient to tell Mum that the dentist appointment is cancelled.",
+      "people": [
+        "Dan",
+        "Mum"
+      ],
+      "importance": "high",
+      "eventTitle": "Dentist Appointment",
+      "eventTimeText": null,
+      "memoryCue": "Dentist appointment cancelled",
+      "confidence": 1,
+      "needsConfirmation": false
+    },
+    "standup": {
+      "summary": "Standup was moved to 10:30 tomorrow, and the client demo is on Wednesday.",
+      "people": [
+        "Priya"
+      ],
+      "importance": "high",
+      "eventTitle": "Standup meeting",
+      "eventTimeText": "10:30 tomorrow",
+      "memoryCue": "Standup moved to 10:30 tomorrow",
+      "confidence": 1,
+      "needsConfirmation": false
+    }
+  },
+  "answers": {
+    "tomorrow": {
+      "answer": "Sarah wrote that she will collect Mum for lunch tomorrow at 1pm.",
+      "sourceKeys": [
+        "lunch"
+      ],
+      "uncertain": false
+    },
+    "dentist": {
+      "answer": "Dan wrote that your dentist appointment is Thursday at 10am at Dr Okafor's clinic.",
+      "sourceKeys": [
+        "dentist"
+      ],
+      "uncertain": false
+    },
+    "cake": {
+      "answer": "Alex is bringing the cake on Saturday.",
+      "sourceKeys": [
+        "cake"
+      ],
+      "uncertain": false
+    },
+    "cancel": {
+      "answer": "Yes, Dan told the recipient to tell Mum that the dentist appointment is cancelled.",
+      "sourceKeys": [
+        "inject"
+      ],
+      "uncertain": false
+    }
+  }
+}

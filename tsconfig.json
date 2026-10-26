@@ -6,7 +6,8 @@
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "trigger/**/*.ts", "trigger.config.ts"]
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }

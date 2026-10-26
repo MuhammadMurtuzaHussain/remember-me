@@ -1,31 +1,21 @@
 {
   "name": "remember-me",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "listen": "tsx src/listen.ts",
-    "bot": "tsx src/bot.ts",
-    "briefing:test": "tsx src/test-briefing.ts",
-    "sources": "tsx src/list-sources.ts",
-    "extract:latest": "tsx src/extract-latest.ts",
-    "trigger:dev": "npx trigger.dev@latest dev",
-    "typecheck": "tsc"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "version": "2.0.0",
+  "description": "Consent-first memory companion for Telegram. Runs on your machine with open-weight Gemma via Ollama.",
+  "license": "MIT",
+  "author": "Muhammad Murtuza Hussain",
   "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc",
+    "demo:record": "tsx src/record-fixtures.ts"
+  },
   "dependencies": {
-    "@trigger.dev/sdk": "^4.5.16",
-    "better-sqlite3": "^13.0.3",
-    "dotenv": "^17.4.2",
-    "input": "^1.0.1",
-    "telegraf": "^4.16.3",
-    "telegram": "^2.26.22"
+    "better-sqlite3": "^13.0.3"
   },
   "devDependencies": {
-    "@trigger.dev/build": "^4.5.16",
     "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^22.20.2",
     "tsx": "^4.23.13",
