@@ -19,8 +19,11 @@ const OUTCOME = {
 let sid = null;
 let info = null;
 
+let local = null; // set when there is no server API (static hosting)
+
 async function api(path, body) {
-  const res = await fetch(path, body ? { method: "POST", body: JSON.stringify(body) } : undefined);
+  if (local) return local(path, body);
+  const res = await fetch(path.replace(/^\//, ""), body ? { method: "POST", body: JSON.stringify(body) } : undefined);
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw Object.assign(new Error(data.error || "Request failed"), { status: res.status });
   return data;
@@ -128,7 +131,7 @@ function buildStatic() {
   $("ask").hidden = !live;
   $("mode-note").textContent = live
     ? `A local ${info.model} model is running here, so you can also write your own messages and questions.`
-    : `This is a replay: the answers below were recorded from a real ${info.model} run on these exact messages, so this server needs no model and never sees free text. Run it locally for the live model.`;
+    : `This is a replay: the answers below were recorded from a real ${info.model} run on these exact messages, so no model is needed and no free text is ever sent anywhere. Run it locally for the live model.`;
 }
 
 async function ask(question) {
@@ -148,7 +151,13 @@ async function ask(question) {
 
 async function boot() {
   try {
-    info = await api("/api/info");
+    try {
+      info = await api("/api/info");
+    } catch {
+      // No API here (for example GitHub Pages): run the same sandbox inside the browser.
+      local = await (await import("./local-backend.js")).createLocalBackend();
+      info = await api("/api/info");
+    }
     await startSession();
     buildStatic();
     $("demo-app").hidden = false;

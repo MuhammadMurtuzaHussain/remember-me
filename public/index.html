@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Remember Me</title>
 <meta name="description" content="A consent-first memory companion for Telegram. Open source, and the language model runs on your own machine.">
-<link rel="stylesheet" href="/style.css">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="top">
@@ -35,7 +36,7 @@
 
 <section id="demo" class="wrap">
   <h2>Try it in a sandbox</h2>
-  <p class="muted">Everything below is synthetic: invented people and invented messages. Nothing connects to Telegram, nothing is written to disk, and your session is deleted after 20 minutes idle. <span id="mode-note"></span></p>
+  <p class="muted">Everything below is synthetic: invented people and invented messages. Nothing connects to Telegram and nothing is written to disk. On the hosted page it all runs in your browser tab and is gone when you close it. <span id="mode-note"></span></p>
 
   <div id="demo-app" class="demo" hidden>
     <div class="panel" aria-labelledby="p1">
@@ -110,6 +111,6 @@ cd remember-me &amp;&amp; npm install &amp;&amp; npm start</code></pre>
   <p>Created and maintained by <b>Muhammad Murtuza Hussain</b>. A hackathon prototype rebuilt as a complete open-source project for Hacktoberfest 2026.</p>
   <p class="muted">Remember Me is a memory aid, not a medical device. It does not diagnose, and it should not be the only way anyone keeps track of an important appointment.</p>
 </footer>
-<script src="/app.js" type="module"></script>
+<script src="app.js" type="module"></script>
 </body>
 </html>
